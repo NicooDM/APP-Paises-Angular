@@ -1,21 +1,31 @@
 import { Component } from '@angular/core';
+import { RESTCountrieResponse } from '../../interface/pais.interface';
 import { PaisService } from '../../services/pais.service';
 
 @Component({
   selector: 'app-por-pais',
   templateUrl: './por-pais.component.html',
-  styleUrls: ['./por-pais.component.css']
+  styleUrls: ['./por-pais.component.css'],
 })
 export class PorPaisComponent {
+  termino: string = '';
+  hayError: boolean = false;
+  paises : RESTCountrieResponse [] = [];
+  constructor(private paisService: PaisService) {}
 
-  termino : string ='';
-  constructor(private paisService : PaisService){}
-
-  buscar(){
+  buscar() {
+    this.hayError = false;
     console.log(this.termino);
-    this.paisService.buscarPais(this.termino).subscribe((resp)=>{
-      console.log(resp);
-    })
+    this.paisService.buscarPais(this.termino).subscribe(
+      (paises) => {
+        console.log(paises);
+        this.paises = paises;
+       
+      },
+      (err) => {
+        this.hayError = true;
+        this.paises = []
+      }
+    );
   }
-
 }
