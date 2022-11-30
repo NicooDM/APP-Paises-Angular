@@ -1,1 +1,30 @@
-<p>ver-pais works!</p>
+<div class="alert alert-info" *ngIf="!pais; else divPais">
+  Espere por favor...
+</div>
+
+<ng-template #divPais>
+  <div class="card text-center" style="width: 18rem">
+    <img src="{{ pais.flag }}" class="card-img-top" alt="{{ pais.name }}" />
+    <div class="card-body">
+      <h5 class="card-title">{{ pais.name }}</h5>
+      <p class="card-text">Poblacion : {{ pais.population | number }}</p>
+      <p class="card-text">SubRegion : {{ pais.subregion }}</p>
+      <p class="card-text">Region : {{ pais.region }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Traducciones</h3>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.de }}</span>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.es }}</span>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.fr }}</span>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.it }}</span>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.hr }}</span>
+      <span class="badge text-bg-info mr-1">{{ pais.translations.ja }}</span>
+    </div>
+  </div>
+  <pre class="mt-5">
+    {{pais | json}}
+
+  </pre>
+</ng-template>
